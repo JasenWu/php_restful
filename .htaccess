@@ -5,3 +5,16 @@ RewriteEngine on
 # 重写规则
 RewriteRule ^site/list/$   RestController.php?view=all [nc,qsa]
 RewriteRule ^site/list/([0-9]+)/$   RestController.php?view=single&id=$1 [nc,qsa]
+
+RewriteRule ^site/add_user/$   RestController.php?view=add_user [nc,qsa]
+RewriteRule ^site/list_user/$   RestController.php?view=list_user [nc,qsa]
+
+RewriteRule ^site/del_user/$   RestController.php?view=del_user [nc,qsa]
+
+RewriteRule ^site/edit_user/$   RestController.php?view=edit_user [nc,qsa]
+
+RewriteRule ^site/login/$   RestController.php?view=login [nc,qsa]
+
+RewriteRule ^site/action_controler/$   RestController.php?view=action_controler [nc,qsa]
+
+RewriteRule ^site/login_out/$   RestController.php?view=login_out [nc,qsa]

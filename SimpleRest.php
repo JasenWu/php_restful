@@ -3,16 +3,28 @@
  * 一个简单的 RESTful web services 基类
  * 我们可以基于这个类来扩展需求
 */
+//https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Expose-Headers
+$clientIp = "http://127.0.0.1:9090";
+header('Access-Control-Allow-Origin:'.$clientIp);//允许指定域名的脚本访问该资源，w3c最新规范
+header("Access-Control-Allow-Methods:GET,POST,OPTIONS,PUT,DELETE");//允许访问的方法
+header("Access-Control-Expose-Headers:Cache-Control,Content-Length");//列出了哪些首部可以作为响应的一部分暴露给外部。
+header("Access-Control-Allow-Credentials:true");//表示是否可以将对请求的响应暴露给页面。返回true则可以，其他值均不可以。
+header("Access-Control-Allow-Headers:Content-Type,Access-Token");//响应首部 Access-Control-Allow-Headers 用于 preflight request （预检请求）中，列出了将会在正式请求的 Access-Control-Expose-Headers 字段中出现的首部信息。
+
 class SimpleRest {
+    function __construct(){
+
+    }
 
     private $httpVersion = "HTTP/1.1";
 
     public function setHttpHeaders($contentType, $statusCode){
 
         $statusMessage = $this -> getHttpStatusMessage($statusCode);
-
         header($this->httpVersion. " ". $statusCode ." ". $statusMessage);
         header("Content-Type:". $contentType);
+        header("Access-Control-Allow-Credentials:true");
+
     }
 
     public function getHttpStatusMessage($statusCode){
@@ -40,7 +52,7 @@ class SimpleRest {
             403 => 'Forbidden',
             404 => 'Not Found',
             405 => 'Method Not Allowed',
-            406 => 'Not Acceptable',  
+            406 => 'Not Acceptable',
             407 => 'Proxy Authentication Required',
             408 => 'Request Timeout',
             409 => 'Conflict',
